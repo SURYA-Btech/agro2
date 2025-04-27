@@ -101,13 +101,18 @@ elif menu == "Predict Price":
 
     st.subheader("📊 See Model Performance")
     # Since there's no ML model, we'll just show a dummy value for MSE
-    mse = ((df['Price'] - df['Price'].mean()) ** 2).mean()  # Mean squared error approximation
-    st.write(f"Mean Squared Error (MSE): {mse:.2f}")
+    predicted_prices = []
+for i in range(len(df)):
+    predicted_prices.append(predict_price(df['Rainfall (mm)'][i], df['Temperature (°C)'][i]))
 
-    st.subheader("📈 Actual vs Predicted Prices")
-    predicted_prices = [predict_price(r, t) for r, t in zip(df['Rainfall (mm)'], df['Temperature (°C)'])]
-    comparison_df = pd.DataFrame({'Actual Price': df['Price'], 'Predicted Price': predicted_prices})
-    st.line_chart(comparison_df)
+# Create a DataFrame for comparison
+comparison_df = pd.DataFrame({
+    'Actual Price': df['Price'],
+    'Predicted Price': predicted_prices
+})
+
+# Display a line chart comparing actual and predicted prices
+st.line_chart(comparison_df)
 
 # About Us Page
 elif menu == "About Us":
