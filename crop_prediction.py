@@ -5,7 +5,7 @@ import time
 # Page setup
 st.set_page_config(page_title="Crop Price Prediction", layout="wide")
 
-# Data
+# Data for prediction
 data = {
     'Rainfall (mm)': [200, 150, 300, 400, 250, 100, 500, 350, 275, 180],
     'Temperature (°C)': [25, 23, 30, 32, 28, 22, 35, 29, 27, 24],
@@ -13,29 +13,35 @@ data = {
 }
 df = pd.DataFrame(data)
 
-# Simple manual prediction function
+# Simple prediction function
 def predict_price(rainfall, temperature):
+    # Formula to predict price based on rainfall and temperature
     avg_price = 1000 + (rainfall * 2.5) + (temperature * 8.5)
     return avg_price
 
 # Home Page
 st.title("🌾 Crop Price Prediction Platform")
 
+# Welcome Section with metrics
 st.header("Welcome to Smart Farming Solutions ")
 col1, col2 = st.columns(2)
 with col1:
     st.subheader("Empowering Farmers:")
     st.write("""
-    - 📈 Predict crop selling prices easily  
-    - 🌦️ Rainfall and temperature based prediction  
-    - 🖥️ Fast, Secure & Easy-to-use
+    -  Predict crop selling prices easily  
+    -  Rainfall and temperature based prediction  
+    -  Fast, Secure & Easy-to-use
     """)
     st.metric(label="Happy Farmers", value="120+")
     st.metric(label="Supported Crops", value="50+")
 
+with col2:
+    st.image("https://images.unsplash.com/photo-1589888407787-9cd0847863dc", use_container_width=True)
+
 st.divider()
 
-st.subheader("Why Farmers Trust Us:")
+# Why Choose Us Section
+st.subheader(" Why Farmers Trust Us:")
 features = [
     "⚡ Instant Price Predictions",
     "📊 Simple User Interface",
@@ -49,15 +55,28 @@ for feature in features:
 st.divider()
 
 # Prediction Section
-st.subheader(" Predict Your Crop Price")
+st.subheader("Predict Your Crop Price")
 
+# Form to collect user input
 with st.form(key="predict_form"):
-    rainfall = st.number_input("Enter Rainfall (mm)", min_value=0, max_value=1000, value=300)
-    temperature = st.number_input("Enter Temperature (°C)", min_value=0, max_value=50, value=25)
+    # Accepting user inputs for rainfall and temperature
+    rainfall = st.slider("Select Rainfall (mm)", min_value=0, max_value=1000, value=300)
+    temperature = st.slider("Select Temperature (°C)", min_value=0, max_value=50, value=25)
+    
+    # Collecting name and email for contact purposes
+    name = st.text_input("Enter your Name")
+    email = st.text_input("Enter your Email")
+
+    # Submit Button
     submit_button = st.form_submit_button("Predict Price")
+    
     if submit_button:
-        price = predict_price(rainfall, temperature)
-        st.success(f" Predicted Crop Price: ₹{price:.2f}")
+        if name and email:  # Check if name and email are provided
+            price = predict_price(rainfall, temperature)
+            st.success(f"Predicted Crop Price: ₹{price:.2f}")
+            st.write(f"Thank you, {name}, for using our platform! We will send you updates to {email}.")
+        else:
+            st.warning("Please enter your name and email.")
 
 st.divider()
 
@@ -79,7 +98,7 @@ for _ in range(5):  # Loop 5 times to display auto-moving testimonials
 
 st.divider()
 
-# Growth Chart
+# Growth Chart (Users Over Time)
 st.subheader("📈 Our Growth Journey")
 
 growth_data = pd.DataFrame({
