@@ -3,7 +3,7 @@ import streamlit as st
 from itertools import cycle
 
 # Page settings
-st.set_page_config(page_title="Web3Learn - Decentralized Course Platform", layout="wide")
+st.set_page_config(page_title="LearnChain - Decentralized Course Platform", layout="wide")
 
 # Sample course data
 course_data = pd.DataFrame({
@@ -24,7 +24,7 @@ menu = st.sidebar.selectbox("Navigation", ["Home", "Courses", "Certifications", 
 
 # --------------- Home Page ---------------
 if menu == "Home":
-    st.title("🏛️ Welcome to Web3Learn")
+    st.title("🏛️ Welcome to LearnChain")
 
     col1, col2 = st.columns(2)
     with col1:
@@ -44,7 +44,7 @@ if menu == "Home":
 
     st.divider()
 
-    st.subheader("🚀 Why Web3Learn?")
+    st.subheader("🚀 Why learnchain?")
     benefits = [
         " Wallet-based Identity (No usernames/passwords)",
         " Courses Stored on IPFS",
