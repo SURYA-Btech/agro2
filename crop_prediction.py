@@ -1,138 +1,143 @@
-import pandas as pd
 import streamlit as st
-from itertools import cycle
+import pandas as pd
 
 # Page settings
-st.set_page_config(page_title="Crop Price Prediction", layout="wide")
+st.set_page_config(page_title="Web3 E-Learning Platform", layout="wide")
 
-# Data
-data = {
-    'Rainfall (mm)': [200, 150, 300, 400, 250, 100, 500, 350, 275, 180],
-    'Temperature (°C)': [25, 23, 30, 32, 28, 22, 35, 29, 27, 24],
-    'Price': [1500, 1300, 1800, 2100, 1700, 1200, 2500, 2000, 1600, 1400]
-}
-df = pd.DataFrame(data)
-
-# Price Prediction Function
-def predict_price(rainfall, temperature):
-    a = 2.5  # rainfall weight
-    b = 30   # temperature weight
-    c = 1000 # base price
-    return a * rainfall + b * temperature + c
-
-# Sidebar Menu
-menu = st.sidebar.selectbox("Navigation", ["Home", "Predict Price", "About Us", "Contact Us"])
+# Sidebar navigation
+menu = st.sidebar.selectbox("Navigation", [
+    "Home", 
+    "Course Marketplace", 
+    "Certifications", 
+    "Progress Tracker", 
+    "Governance", 
+    "Payments", 
+    "Contact Us"
+])
 
 # ---------------- Home Page ----------------
 if menu == "Home":
-    st.title(" Welcome to Crop Price Prediction Platform")
+    st.title("🎓 Welcome to the Web3 E-Learning Revolution")
 
     col1, col2 = st.columns(2)
     with col1:
-        st.header("Empowering Farmers with ML 🌾")
-        st.write("""
-        - Accurate Crop Price Predictions  
-        - Boost your profits with informed decisions  
-        - 🌦 Analyze weather patterns, soil, and market trends
+        st.header("📚 Learn. 👛 Own. 🧾 Verify.")
+        st.markdown("""
+        - ✅ Wallet-Backed Identity (Web3Auth)  
+        - 📦 Content stored permanently on IPFS  
+        - 🧾 Verifiable NFT Certifications  
+        - 🔒 Fully Censorship-Resistant  
+        - 🌍 Community-Driven DAO Governance  
         """)
-        st.metric(label="Happy Customers", value="120+")
-        st.metric(label="Crops Supported", value="50+")
+        st.metric("Active Learners", "5,000+")
+        st.metric("Courses On-Chain", "120+")
+    with col2:
+        st.image("https://gateway.pinata.cloud/ipfs/QmWeb3ExampleImage", caption="Decentralized Learning Powered by Blockchain")
 
     st.divider()
 
-    st.subheader("Why Choose Us?")
+    st.subheader("✨ Key Features")
     features = [
-        "⚡ Real-time Price Updates",
-        "📈 Machine Learning Powered",
-        "🌎 Works Across India",
-        "📊 Upload your own Data",
-        "🔒 Secure & Private",
-        "🖥️ Easy-to-Use Interface"
+        "👛 Easy Wallet Signup (Google/Email > Web3 Wallet)",
+        "📚 Courses Stored & Tracked On-Chain",
+        "🧾 Certificates Minted as NFTs",
+        "📦 Course Materials on IPFS (Decentralized Storage)",
+        "📊 Progress Tracking On Blockchain",
+        "💸 UPI + Crypto Payments",
+        "🗳️ DAO-Based Governance",
+        "🔐 Fully Transparent, Open-Source Smart Contracts"
     ]
     for feature in features:
         st.success(feature)
 
     st.divider()
 
-    st.subheader("💬 What Our Customers Say")
+    st.subheader("💬 Testimonials")
     testimonials = [
-        "“This app changed my farming business! - Rajesh Kumar, Tamil Nadu”",
-        "“I can finally predict the best time to sell crops! - Ayesha Patel, Gujarat”",
-        "“Very accurate predictions and simple to use. - Sunil Verma, Punjab”"
+        "“Love owning my learning records forever!” — Ayaan, Mumbai",
+        "“This is the future of education!” — Priya, Hyderabad",
+        "“I minted my course certificate to show employers!” — Karan, Bangalore"
     ]
-    selected_testimonial = st.selectbox("Testimonials", testimonials)
+    selected_testimonial = st.selectbox("User Feedback", testimonials)
     st.info(selected_testimonial)
 
     st.divider()
 
-    st.subheader("📈 Our Growth")
+    st.subheader("📈 Platform Growth")
     growth_data = pd.DataFrame({
-        'Month': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        'Users': [50, 100, 250, 400, 600, 900]
+        'Month': ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        'Users': [200, 500, 1200, 2500, 5000]
     })
     st.line_chart(growth_data.set_index('Month'))
 
-# ---------------- Predict Price Page ----------------
-elif menu == "Predict Price":
-    st.title("Predict Your Crop Price")
+# ---------------- Course Marketplace ----------------
+elif menu == "Course Marketplace":
+    st.title("🎯 Explore On-Chain Courses")
 
-    with st.form(key="predict_form"):
-        rainfall = st.number_input("Enter Rainfall (mm)", min_value=0, max_value=1000, value=300)
-        temperature = st.number_input("Enter Temperature (°C)", min_value=0, max_value=50, value=25)
-        submit_button = st.form_submit_button("Predict Price")
+    st.info("🚀 All course metadata is stored via Smart Contracts. Content is hosted on IPFS.")
 
-        if submit_button:
-            price_pred = predict_price(rainfall, temperature)
-            st.success(f"Predicted Crop Price: ₹{price_pred:.2f}")
-
-    st.divider()
-
-    st.subheader("📊 Model Performance")
-    predicted_prices = [
-        predict_price(df['Rainfall (mm)'][i], df['Temperature (°C)'][i])
-        for i in range(len(df))
+    courses = [
+        {"Title": "Blockchain Basics", "Instructor": "0x123...abc", "Fee (MATIC)": 10, "IPFS Link": "ipfs://QmABC"},
+        {"Title": "Solidity Development", "Instructor": "0x456...def", "Fee (MATIC)": 15, "IPFS Link": "ipfs://QmDEF"},
+        {"Title": "Decentralized Storage Systems", "Instructor": "0x789...ghi", "Fee (MATIC)": 12, "IPFS Link": "ipfs://QmGHI"}
     ]
+    df_courses = pd.DataFrame(courses)
+    st.table(df_courses)
 
-    comparison_df = pd.DataFrame({
-        'Actual Price': df['Price'],
-        'Predicted Price': predicted_prices
-    })
+    st.success("🔗 After enrollment, your progress will be tracked on-chain!")
 
-    st.line_chart(comparison_df)
+# ---------------- Certifications ----------------
+elif menu == "Certifications":
+    st.title("🧾 Verify Your NFT Certificate")
 
-# ---------------- About Us Page ----------------
-elif menu == "About Us":
-    st.title("👩‍💻 About Our Platform")
-    st.write("""
-    We are a team of passionate engineers dedicated to empowering Indian farmers.  
-    Our platform predicts crop prices based on rainfall and temperature to maximize your profits.
-    """)
-
-    st.subheader("🚀 Mission")
-    st.info("Farmers often face significant challenges due to unpredictable crop prices and limited diversification options. \nAgroVision addresses these issues by predicting crop prices at harvest and suggesting alternative crops to reduce risks.")
-
-    st.subheader("🌍 Vision")
-    st.info("With increasing digital adoption, there's an opportunity to provide affordable and accessible tools for price prediction. Our vision is to help small-scale farmers make informed decisions through data-driven solutions.")
-
-    st.subheader("🛠️ Technologies We Use")
-    techs = ["Python", "Pandas", "Streamlit"]
-    st.write(techs)
-
-# ---------------- Contact Us Page ----------------
-elif menu == "Contact Us":
-    st.title("📞 Contact Us")
-    st.write("Feel free to connect with us!")
-
-    with st.form(key="contact_form"):
-        name = st.text_input("Name")
-        email = st.text_input("Email")
-        message = st.text_area("Your Message")
-        submit_button = st.form_submit_button("Send Message")
-
-        if submit_button:
-            st.success(f"Thank you {name}! We have received your message and will contact you shortly.")
+    nft_id = st.text_input("Enter NFT ID or Wallet Address")
+    if nft_id:
+        st.success(f"✅ Certificate for {nft_id} found!")
+        st.json({
+            "Course": "Blockchain Basics",
+            "Issued To": nft_id,
+            "Date": "2025-04-25",
+            "IPFS Metadata": "https://ipfs.io/ipfs/QmCertificateHashExample"
+        })
 
     st.divider()
-    st.write("📧 Email: support@croppricepredict.com")
-    st.write("📞 Phone: +91 9876543210")
-    st.write("[🔗 LinkedIn](https://linkedin.com/company/crop-price-predict)")
+    st.info("All certificates are minted directly to your wallet — fully verifiable on public blockchains.")
+
+# ---------------- Progress Tracker ----------------
+elif menu == "Progress Tracker":
+    st.title("📊 Your On-Chain Learning Progress")
+
+    wallet_address = st.text_input("Enter your Wallet Address")
+    if wallet_address:
+        st.info(f"Tracking Progress for Wallet: {wallet_address}")
+
+        progress_data = pd.DataFrame({
+            'Course': ['Blockchain Basics', 'Solidity Dev', 'IPFS Essentials'],
+            'Progress (%)': [100, 65, 40]
+        })
+        st.bar_chart(progress_data.set_index('Course'))
+
+# ---------------- Governance ----------------
+elif menu == "Governance":
+    st.title("🗳️ DAO Governance Panel")
+
+    st.info("🚀 Use your $LEARN tokens to participate in governance!")
+
+    proposals = [
+        {"Proposal": "Add 'Web3 Security' Course", "Status": "Voting Open"},
+        {"Proposal": "Move to Layer 2 Blockchain", "Status": "Approved"},
+        {"Proposal": "Sponsor Hackathon for Learners", "Status": "Voting Open"}
+    ]
+    proposals_df = pd.DataFrame(proposals)
+    st.table(proposals_df)
+
+    st.success("🎯 Shape the future of the platform with your votes!")
+
+# ---------------- Payments ----------------
+elif menu == "Payments":
+    st.title("💸 Payments")
+
+    st.write("""
+    We support:
+    - 🔹 Crypto (MATIC, USDT, ETH)
+    - 🔹 Traditional (UPI, Bank Transfer)
