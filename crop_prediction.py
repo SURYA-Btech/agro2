@@ -109,6 +109,8 @@ elif menu == "Certifications":
 # --------------- Progress Page ---------------
 elif menu == "Progress":
     st.title("📈 Your Learning Progress")
+    st.video("https://www.youtube.com/watch?v=your_video_id", use_container_width=True)
+
 
     st.dataframe(user_progress)
 
