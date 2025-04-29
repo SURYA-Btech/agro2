@@ -39,10 +39,8 @@ if menu == "Home":
         st.metric(label="Active Learners", value="5,000+")
         st.metric(label="Verified Certificates", value="1,200+")
 
- # Updated image display with use_container_width
-with col2:
-    st.image("https://images.unsplash.com/photo-1611582062386-7e02f7fdbd75", caption="Learning on Blockchain", use_container_width=True)
-
+    with col2:
+        st.image("https://images.unsplash.com/photo-1611582062386-7e02f7fdbd75", caption="Learning on Blockchain", use_container_width=True)
 
     st.divider()
 
@@ -181,4 +179,3 @@ elif menu == "Contact Us":
     st.write("📧 Email: support@web3learn.com")
     st.write("🌐 Website: [https://web3learn.com](https://web3learn.com)")
     st.write("🔗 LinkedIn: [Web3Learn LinkedIn](https://linkedin.com/company/web3learn)")
-
