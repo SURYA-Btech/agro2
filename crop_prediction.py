@@ -30,11 +30,11 @@ if menu == "Home":
     with col1:
         st.header("Revolutionizing Learning with Blockchain 🌐")
         st.write("""
-        - 🎓 Decentralized Ownership of Your Learning  
-        - 📜 Verifiable NFT Certificates  
-        - 💰 Direct Payments without Middlemen  
-        - 🔒 Full Privacy and Security  
-        - 🛠️ Govern the platform via DAO  
+        -  Decentralized Ownership of Your Learning  
+        -  Verifiable NFT Certificates  
+        -  Direct Payments without Middlemen  
+        -  Full Privacy and Security  
+        - 🛠 Govern the platform via DAO  
         """)
         st.metric(label="Active Learners", value="5,000+")
         st.metric(label="Verified Certificates", value="1,200+")
@@ -46,12 +46,12 @@ if menu == "Home":
 
     st.subheader("🚀 Why Web3Learn?")
     benefits = [
-        "🪙 Wallet-based Identity (No usernames/passwords)",
-        "📦 Courses Stored on IPFS",
-        "🛡️ Immutable Certificates",
-        "📈 Transparent Learning Records",
-        "🌍 Global Access 24/7",
-        "🧑‍🤝‍🧑 DAO-based Platform Governance"
+        " Wallet-based Identity (No usernames/passwords)",
+        " Courses Stored on IPFS",
+        "🛡 Immutable Certificates",
+        " Transparent Learning Records",
+        " Global Access 24/7",
+        " DAO-based Platform Governance"
     ]
     for benefit in benefits:
         st.success(benefit)
@@ -101,7 +101,7 @@ elif menu == "Certifications":
     ]
 
     for cert in sample_certificates:
-        st.write(f"✅ {cert['Course']}: [View Certificate]({cert['Certificate Link']})")
+        st.write(f" {cert['Course']}: [View Certificate]({cert['Certificate Link']})")
 
     st.divider()
     st.info("All certificates are minted as NFTs on the Polygon blockchain. Publicly verifiable!")
