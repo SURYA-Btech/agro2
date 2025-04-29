@@ -1,139 +1,125 @@
-import streamlit as st
 import pandas as pd
+import streamlit as st
+from itertools import cycle
 
 # Page settings
-st.set_page_config(page_title="Web3 E-Learning Platform", layout="wide")
+st.set_page_config(page_title="Web3Learn - Decentralized Course Platform", layout="wide")
 
-# Sidebar navigation
-menu = st.sidebar.selectbox("Navigation", [
-    "Home", 
-    "Course Marketplace", 
-    "Certifications", 
-    "Progress Tracker", 
-    "Governance", 
-    "Payments", 
-    "Contact Us"
-])
+# Sample course data
+course_data = pd.DataFrame({
+    "Course Name": ["Intro to Blockchain", "Smart Contracts 101", "IPFS & Filecoin Basics", "DAO Governance"],
+    "Instructor": ["Alice", "Bob", "Charlie", "Diana"],
+    "Fee (MATIC)": [50, 75, 60, 90],
+    "IPFS Link": ["ipfs://abc", "ipfs://def", "ipfs://ghi", "ipfs://jkl"]
+})
 
-# ---------------- Home Page ----------------
+# Sample user progress data
+user_progress = pd.DataFrame({
+    "Course": ["Intro to Blockchain", "Smart Contracts 101"],
+    "Progress (%)": [100, 45]
+})
+
+# Sidebar Menu
+menu = st.sidebar.selectbox("Navigation", ["Home", "Courses", "Certifications", "Progress", "Payments", "About Us", "Contact Us"])
+
+# --------------- Home Page ---------------
 if menu == "Home":
-    st.title("🎓 Welcome to the Web3 E-Learning Revolution")
+    st.title("🏛️ Welcome to Web3Learn")
 
     col1, col2 = st.columns(2)
     with col1:
-        st.header("📚 Learn. 👛 Own. 🧾 Verify.")
-        st.markdown("""
-        - ✅ Wallet-Backed Identity (Web3Auth)  
-        - 📦 Content stored permanently on IPFS  
-        - 🧾 Verifiable NFT Certifications  
-        - 🔒 Fully Censorship-Resistant  
-        - 🌍 Community-Driven DAO Governance  
+        st.header("Revolutionizing Learning with Blockchain 🌐")
+        st.write("""
+        - 🎓 Decentralized Ownership of Your Learning  
+        - 📜 Verifiable NFT Certificates  
+        - 💰 Direct Payments without Middlemen  
+        - 🔒 Full Privacy and Security  
+        - 🛠️ Govern the platform via DAO  
         """)
-        st.metric("Active Learners", "5,000+")
-        st.metric("Courses On-Chain", "120+")
+        st.metric(label="Active Learners", value="5,000+")
+        st.metric(label="Verified Certificates", value="1,200+")
+
     with col2:
-        st.image("https://gateway.pinata.cloud/ipfs/QmWeb3ExampleImage", caption="Decentralized Learning Powered by Blockchain")
+        st.image("https://images.unsplash.com/photo-1611582062386-7e02f7fdbd75", caption="Learning on Blockchain", use_column_width=True)
 
     st.divider()
 
-    st.subheader("✨ Key Features")
-    features = [
-        "👛 Easy Wallet Signup (Google/Email > Web3 Wallet)",
-        "📚 Courses Stored & Tracked On-Chain",
-        "🧾 Certificates Minted as NFTs",
-        "📦 Course Materials on IPFS (Decentralized Storage)",
-        "📊 Progress Tracking On Blockchain",
-        "💸 UPI + Crypto Payments",
-        "🗳️ DAO-Based Governance",
-        "🔐 Fully Transparent, Open-Source Smart Contracts"
+    st.subheader("🚀 Why Web3Learn?")
+    benefits = [
+        "🪙 Wallet-based Identity (No usernames/passwords)",
+        "📦 Courses Stored on IPFS",
+        "🛡️ Immutable Certificates",
+        "📈 Transparent Learning Records",
+        "🌍 Global Access 24/7",
+        "🧑‍🤝‍🧑 DAO-based Platform Governance"
     ]
-    for feature in features:
-        st.success(feature)
+    for benefit in benefits:
+        st.success(benefit)
 
     st.divider()
 
-    st.subheader("💬 Testimonials")
+    st.subheader("📢 Learner Testimonials")
     testimonials = [
-        "“Love owning my learning records forever!” — Ayaan, Mumbai",
-        "“This is the future of education!” — Priya, Hyderabad",
-        "“I minted my course certificate to show employers!” — Karan, Bangalore"
+        "“Finally, a platform where my certificates are truly mine!” - Neha, India",
+        "“Seamless learning experience with full transparency.” - Marcus, USA",
+        "“DAO governance gave me a voice in shaping courses!” - Amina, Kenya"
     ]
-    selected_testimonial = st.selectbox("User Feedback", testimonials)
-    st.info(selected_testimonial)
+    selected = st.selectbox("What our learners say", testimonials)
+    st.info(selected)
 
     st.divider()
 
-    st.subheader("📈 Platform Growth")
+    st.subheader("📊 Our Growth Journey")
     growth_data = pd.DataFrame({
-        'Month': ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-        'Users': [200, 500, 1200, 2500, 5000]
+        "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        "Users": [500, 800, 1500, 3000, 4000, 5000]
     })
-    st.line_chart(growth_data.set_index('Month'))
+    st.line_chart(growth_data.set_index("Month"))
 
-# ---------------- Course Marketplace ----------------
-elif menu == "Course Marketplace":
-    st.title("🎯 Explore On-Chain Courses")
+# --------------- Courses Page ---------------
+elif menu == "Courses":
+    st.title("📚 Explore Courses")
 
-    st.info("🚀 All course metadata is stored via Smart Contracts. Content is hosted on IPFS.")
-
-    courses = [
-        {"Title": "Blockchain Basics", "Instructor": "0x123...abc", "Fee (MATIC)": 10, "IPFS Link": "ipfs://QmABC"},
-        {"Title": "Solidity Development", "Instructor": "0x456...def", "Fee (MATIC)": 15, "IPFS Link": "ipfs://QmDEF"},
-        {"Title": "Decentralized Storage Systems", "Instructor": "0x789...ghi", "Fee (MATIC)": 12, "IPFS Link": "ipfs://QmGHI"}
-    ]
-    df_courses = pd.DataFrame(courses)
-    st.table(df_courses)
-
-    st.success("🔗 After enrollment, your progress will be tracked on-chain!")
-
-# ---------------- Certifications ----------------
-elif menu == "Certifications":
-    st.title("🧾 Verify Your NFT Certificate")
-
-    nft_id = st.text_input("Enter NFT ID or Wallet Address")
-    if nft_id:
-        st.success(f"✅ Certificate for {nft_id} found!")
-        st.json({
-            "Course": "Blockchain Basics",
-            "Issued To": nft_id,
-            "Date": "2025-04-25",
-            "IPFS Metadata": "https://ipfs.io/ipfs/QmCertificateHashExample"
-        })
+    st.dataframe(course_data)
 
     st.divider()
-    st.info("All certificates are minted directly to your wallet — fully verifiable on public blockchains.")
 
-# ---------------- Progress Tracker ----------------
-elif menu == "Progress Tracker":
-    st.title("📊 Your On-Chain Learning Progress")
+    st.subheader("📝 Enroll Now")
+    course_choice = st.selectbox("Select Course", course_data["Course Name"])
+    enroll = st.button("Enroll")
 
-    wallet_address = st.text_input("Enter your Wallet Address")
-    if wallet_address:
-        st.info(f"Tracking Progress for Wallet: {wallet_address}")
+    if enroll:
+        st.success(f"You have enrolled in {course_choice}! Complete the course to earn your NFT certificate.")
 
-        progress_data = pd.DataFrame({
-            'Course': ['Blockchain Basics', 'Solidity Dev', 'IPFS Essentials'],
-            'Progress (%)': [100, 65, 40]
-        })
-        st.bar_chart(progress_data.set_index('Course'))
+# --------------- Certifications Page ---------------
+elif menu == "Certifications":
+    st.title("🎓 Your Certifications")
 
-# ---------------- Governance ----------------
-elif menu == "Governance":
-    st.title("🗳️ DAO Governance Panel")
-
-    st.info("🚀 Use your $LEARN tokens to participate in governance!")
-
-    proposals = [
-        {"Proposal": "Add 'Web3 Security' Course", "Status": "Voting Open"},
-        {"Proposal": "Move to Layer 2 Blockchain", "Status": "Approved"},
-        {"Proposal": "Sponsor Hackathon for Learners", "Status": "Voting Open"}
+    sample_certificates = [
+        {"Course": "Intro to Blockchain", "Certificate Link": "https://polygonscan.com/token/0x..."},
+        {"Course": "Smart Contracts 101", "Certificate Link": "https://polygonscan.com/token/0x..."}
     ]
-    proposals_df = pd.DataFrame(proposals)
-    st.table(proposals_df)
 
-    st.success("🎯 Shape the future of the platform with your votes!")
+    for cert in sample_certificates:
+        st.write(f"✅ {cert['Course']}: [View Certificate]({cert['Certificate Link']})")
 
-# ---------------- Payments ----------------
+    st.divider()
+    st.info("All certificates are minted as NFTs on the Polygon blockchain. Publicly verifiable!")
+
+# --------------- Progress Page ---------------
+elif menu == "Progress":
+    st.title("📈 Your Learning Progress")
+
+    st.dataframe(user_progress)
+
+    st.divider()
+
+    st.subheader("🔎 Track by Wallet")
+    wallet_address = st.text_input("Enter Your Wallet Address")
+    if wallet_address:
+        st.success(f"Progress data for wallet {wallet_address} fetched (simulation).")
+
+# --------------- Payments Page ---------------
 elif menu == "Payments":
     st.title("💸 Payments")
 
@@ -141,3 +127,56 @@ elif menu == "Payments":
     We support:
     - 🔹 Crypto (MATIC, USDT, ETH)
     - 🔹 Traditional (UPI, Bank Transfer)
+
+    All payment records are stored on-chain for transparency.
+    """)
+
+    method = st.selectbox("Choose Payment Method", ["Crypto Wallet", "UPI", "Bank Transfer"])
+    if method == "Crypto Wallet":
+        st.success("Connect Wallet: Coming Soon (MetaMask, WalletConnect)")
+    elif method == "UPI":
+        st.write("Pay to UPI ID: `web3learn@upi`")
+    else:
+        st.write("Bank Transfer Details:\n\nAccount Name: Web3Learn\nIFSC: ABCD0123456\nAccount No: 9876543210")
+
+    st.divider()
+    st.info("After payment, access will be unlocked automatically via your wallet.")
+
+# --------------- About Us Page ---------------
+elif menu == "About Us":
+    st.title("👨‍💻 About Web3Learn")
+
+    st.write("""
+    Web3Learn is a fully decentralized e-learning platform powered by blockchain.  
+    We eliminate central control and give power back to learners.
+    """)
+    st.subheader("🌟 Our Vision")
+    st.info("Enable true ownership of learning credentials, accessible globally.")
+
+    st.subheader("🔧 Technologies Used")
+    tech_stack = ["Python", "Streamlit", "Blockchain (Polygon)", "IPFS", "Web3Auth", "NFTs", "DAO Frameworks"]
+    for tech in tech_stack:
+        st.success(tech)
+
+    st.divider()
+    st.subheader("🌎 Join the Revolution!")
+    st.write("[Visit our GitHub](https://github.com/web3learn)")
+
+# --------------- Contact Us Page ---------------
+elif menu == "Contact Us":
+    st.title("📬 Contact Us")
+
+    with st.form("contact_form"):
+        name = st.text_input("Your Name")
+        email = st.text_input("Your Email")
+        message = st.text_area("Your Message")
+        submit = st.form_submit_button("Send")
+
+        if submit:
+            st.success(f"Thank you {name}! We'll get back to you shortly.")
+
+    st.divider()
+    st.write("📧 Email: support@web3learn.com")
+    st.write("🌐 Website: [https://web3learn.com](https://web3learn.com)")
+    st.write("🔗 LinkedIn: [Web3Learn LinkedIn](https://linkedin.com/company/web3learn)")
+
