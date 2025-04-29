@@ -39,8 +39,10 @@ if menu == "Home":
         st.metric(label="Active Learners", value="5,000+")
         st.metric(label="Verified Certificates", value="1,200+")
 
-    with col2:
-        st.image("https://images.unsplash.com/photo-1611582062386-7e02f7fdbd75", caption="Learning on Blockchain", use_column_width=True)
+ # Updated image display with use_container_width
+with col2:
+    st.image("https://images.unsplash.com/photo-1611582062386-7e02f7fdbd75", caption="Learning on Blockchain", use_container_width=True)
+
 
     st.divider()
 
