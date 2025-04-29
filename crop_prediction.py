@@ -24,7 +24,7 @@ menu = st.sidebar.selectbox("Navigation", ["Home", "Courses", "Certifications", 
 
 # --------------- Home Page ---------------
 if menu == "Home":
-    st.title("🏛️ Welcome to learnchain")
+    st.title(" Welcome to learnchain")
 
     col1, col2 = st.columns(2)
     with col1:
